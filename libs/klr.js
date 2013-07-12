@@ -277,7 +277,7 @@
 	{
 		var hsv = klrtool.RGBToHSV(this._red, this._green, this._blue);
 		var rgb = klrtool.HSVToRGB(hsv.hue - angle, hsv.saturation, hsv.value);
-		return new Color(rgb.red, rgb.green, rgb.blue);
+		return new klr(rgb.red, rgb.green, rgb.blue);
 	}
 	
 	/**
@@ -339,7 +339,7 @@
 
 		newHue = newHue % 360;
 		var rgb = klrtool.HSVToRGB(newHue, hsv.saturation, hsv.value);
-		return new Color(rgb.red, rgb.green, rgb.blue);
+		return new klr(rgb.red, rgb.green, rgb.blue);
 	}
 	
 	//////////////////////////////////////////
@@ -559,11 +559,11 @@
 			var color = this.rybRotate(angle * one);
 			var t = 0.44 - two * 0.1;
 			if(this.getBrightness() - contrast * two < t) {
-				klr.setBrightness(t * 100);
+				color.setBrightness(t * 100);
 			} else {
-				klr.setBrightness(this.getBrightness() - contrast * two);
+				color.setBrightness(this.getBrightness() - contrast * two);
 			}
-			klr.setSaturation(klr.getSaturation() - 5);
+			color.setSaturation(color.getSaturation() - 5);
 			wheel.addColor(color);
 		}
 		return wheel;
@@ -889,7 +889,7 @@
 
 	p.copy = function () 
 	{
-		return new Color(this._red, this._green, this._blue);
+		return new klr(this._red, this._green, this._blue);
 	}
 
 	p.blend = function (otherColor,  factor)
@@ -898,7 +898,7 @@
 		var r = Math.max(0, Math.min(256, _red * (1 - factor) + otherklr.getRed() * factor));
 		var g = Math.max(0, Math.min(256, _green * (1 - factor) + otherklr.getGreen() * factor));
 		var b = Math.max(0, Math.min(256,_blue * (1 - factor) + otherklr.getBlue() * factor));
-		return new Color(r, g, b);
+		return new klr(r, g, b);
 	}
 
 	p.gradientTo = function (otherColor , steps )
@@ -945,7 +945,7 @@
 		}
 		for (var i = 0;i < steps; i++) {
 			var rgb = klrtool.convertHSVToRGB(hue + ( direction * (i * hueStep)), sat - (satStep * i), brightness - (brightnessStep * i));
-			var c = new Color(rgb[0], rgb[1], rgb[2]);
+			var c = new klr(rgb[0], rgb[1], rgb[2]);
 			wheel.addColor(c);
 		} 
 		wheel.addColor(otherklr.copy());
@@ -959,11 +959,11 @@
 		for (var i = 0;i < count; i++) {
 			var theSat = Math.random() * (saturation[1] - saturation[0]) + saturation[0] ;
 			var theBright = Math.random() * (brightness[1] - brightness[0]) + brightness[0] ;
-			var newColor = this.copy();
+			var newklr = this.copy();
 			newklr.setSaturation(theSat);
 			newklr.setBrightness(theBright);
-			if(!wheel.contains(newColor)) {
-				wheel.addColor(newColor);
+			if(!wheel.contains(newklr)) {
+				wheel.addColor(newklr);
 			}
 		}
 		return wheel;
@@ -979,17 +979,17 @@
 			var red = Math.abs(Math.random() * (color[1][0] - color[0][0]) + color[0][0]);
 			var green = Math.abs(Math.random() * (color[1][1] - color[0][1]) + color[0][1]);
 			var blue = Math.abs(Math.random() * (color[1][2] - color[0][2]) + color[0][2]);
-			var newColor = new Color(red, green, blue);
+			var newklr = new klr(red, green, blue);
 			newklr.setSaturation(theSat);
 			newklr.setBrightness(theBright);
-			if(!wheel.contains(newColor)) {
-				wheel.addColor(newColor);
+			if(!wheel.contains(newklr)) {
+				wheel.addColor(newklr);
 			}
 		}
 		return wheel;
 	}
 
-	p.isEqual = function (otherColor) 
+	p.isEqual = function (otherklr) 
 	{
 		var result = false;
 		if(otherklr.getRed() == this._red && otherklr.getBlue() == this._blue && otherklr.getGreen() == this._green) {
