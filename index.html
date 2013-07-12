@@ -1,1 +1,316 @@
-hello
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+
+		<title>index</title>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+		<meta name="description" content="" />
+		<meta name="author" content="alexandre masy" />
+		
+		<link rel="stylesheet" type="text/css" href="static/styles/bootstrap.min.css" />
+		<link rel="stylesheet" type="text/css" href="static/styles/bootstrap-responsive.min.css" />
+		<link rel="stylesheet" type="text/css" href="static/styles/colorpicker.css" />
+		<link rel="stylesheet" href="static/styles/all.css" type="text/css" />
+	</head>
+	<body>
+		<header>
+			<div class="navbar">
+				<div class="navbar-inner">
+					<div class="container">
+						<a class="brand" href="#">JSColor</a>
+					</div>
+				</div>
+			</div>
+		</header>
+
+		<!-- Controls -->
+		<form id="controls" class="form-inline form-horizontal clearfix">
+			<span class="span1"></span>
+
+			<div class="span3">
+				<label class="control-label">Color</label>
+				<div class="controls">
+					<div class="picker  input-append color" data-color="rgb(186, 218, 85)" data-color-format="hex" >
+						<input type="text" class="span2" value="#bada55">
+						<span class="add-on"><i style="background-color: rgb(186, 218, 85)"></i></span>
+					</div>
+				</div>
+			</div>
+
+			<div class="span2">
+				<label class="control-label">hue</label>
+				<div class="controls">
+					<input type="number" id="hue" value="0" min="0" max="360">
+				</div>
+			</div>
+
+			<div class="span2">
+				<label class="control-label">saturation</label>
+				<div class="controls">
+					<input type="number" id="saturation" value="0" min="0" max="100">
+				</div>
+			</div>
+			
+			<div class="span2">
+				<label class="control-label">brightness</label>
+				<div class="controls">
+					<input type="number" id="brightness" value="0" min="0" max="100">
+				</div>
+			</div>
+			
+			<div class="span2">
+				<label class="control-label">angle</label>
+				<div class="controls">
+					<input type="number" id="angle" value="0" step="10" min="0" max="360">
+				</div>
+			</div>
+
+			<span class="span1"></span>
+		</form>
+		
+		<!-- Swatch -->
+		<div class="row-fluid clearfix mb">
+			<span class="span1"></span>
+
+			<!-- Color demo -->
+			<section id="color" class="swatch span10">
+				<h3>Color</h3>
+				<div>
+					<canvas id="display" width="207" height="100"></canvas>
+				</div>
+			</section>
+
+			<span class="span1"></span>
+		</div>
+
+		<div class="row-fluid">
+			<span class="span1"></span>
+
+			<h2 class="span10">Schemes</h2>
+			
+			<span class="span1"></span>
+		</div>		
+
+		<div class="row-fluid clearfix mb">
+			<span class="span1"></span>
+
+			<!-- Complement  -->
+			<section id="complement" class="swatch span2">
+				<h3>Completement</h3>
+				<div>
+					<canvas id="display" width="207" height="100"></canvas>
+				</div>
+			</section>
+
+			<!-- Split complement  -->
+			<section id="split-complement" class="swatch span2">
+				<h3>Split completement</h3>
+				<div>
+					<canvas id="display" width="207" height="100"></canvas>
+				</div>
+			</section>
+
+			<!-- Complementary  -->
+			<section id="complementary" class="swatch span2">
+				<h3>Complemetary</h3>
+				<div>
+					<canvas id="display" width="207" height="100"></canvas>
+				</div>
+			</section>
+
+			<!-- Left Complementary  -->
+			<section id="left-complementary" class="swatch span2">
+				<h3>Left complemetary</h3>
+				<div>
+					<canvas id="display" width="207" height="100"></canvas>
+				</div>
+			</section>
+			
+			<!-- Right Complementary  -->
+			<section id="right-complementary" class="swatch span2">
+				<h3>Right complemetary</h3>
+				<div>
+					<canvas id="display" width="207" height="100"></canvas>
+				</div>
+			</section>
+
+			<span class="span1"></span>
+		</div>
+
+		<div class="row-fluid clearfix mb">
+			<span class="span1"></span>
+
+			<!-- monochrome -->
+			<section id="monochrome" class="swatch span2">
+				<h3>Monochrome</h3>
+				<div>
+					<canvas id="display" width="207" height="100"></canvas>
+				</div>
+			</section>
+
+			<!-- triad -->
+			<section id="triad" class="swatch span2">
+				<h3>Triad</h3>
+				<div>
+					<canvas id="display" width="207" height="100"></canvas>
+				</div>
+			</section>
+
+			<!-- tetrad -->
+			<section id="tetrad" class="swatch span2">
+				<h3>Tetrad</h3>
+				<div>
+					<canvas id="display" width="207" height="100"></canvas>
+				</div>
+			</section>
+
+			<!-- Analog -->
+			<section id="analogous" class="swatch span2">
+				<h3>Analogous</h3>
+				<div>
+					<canvas id="display" width="207" height="100"></canvas>
+				</div>
+			</section>
+
+			<!-- Compound -->
+			<section id="compound" class="swatch span2">
+				<h3>Compound</h3>
+				<div>
+					<canvas id="display" width="207" height="100"></canvas>
+				</div>
+			</section>
+
+			<span class="span1"></span>
+		</div>
+
+		<div class="row-fluid">
+			<span class="span1"></span>
+
+			<h2 class="span10">Shades</h2>
+			
+			<span class="span1"></span>
+		</div>	
+
+		<div class="row-fluid clearfix mb">
+			<span class="span1"></span>
+
+			<!-- light -->
+			<section id="light" class="swatch span2">
+				<h3>Light</h3>
+				<div>
+					<canvas id="display" width="207" height="100"></canvas>
+				</div>
+			</section>
+
+			<!-- dark -->
+			<section id="dark" class="swatch span2">
+				<h3>Dark</h3>
+				<div>
+					<canvas id="display" width="207" height="100"></canvas>
+				</div>
+			</section>
+
+			<!-- bright -->
+			<section id="bright" class="swatch span2">
+				<h3>Bright</h3>
+				<div>
+					<canvas id="display" width="207" height="100"></canvas>
+				</div>
+			</section>
+
+			<!-- weak -->
+			<section id="weak" class="swatch span2">
+				<h3>Weak</h3>
+				<div>
+					<canvas id="display" width="207" height="100"></canvas>
+				</div>
+			</section>
+
+			<!-- neutral -->
+			<section id="neutral" class="swatch span2">
+				<h3>Neutral</h3>
+				<div>
+					<canvas id="display" width="207" height="100"></canvas>
+				</div>
+			</section>
+
+			<span class="span1"></span>
+		</div>	
+
+		<div class="row-fluid clearfix mb">
+			<span class="span1"></span>
+
+			<!-- fresh -->
+			<section id="fresh" class="swatch span2">
+				<h3>Fresh</h3>
+				<div>
+					<canvas id="display" width="207" height="100"></canvas>
+				</div>
+			</section>
+
+			<!-- soft -->
+			<section id="soft" class="swatch span2">
+				<h3>Soft</h3>
+				<div>
+					<canvas id="display" width="207" height="100"></canvas>
+				</div>
+			</section>
+
+			<!-- hard -->
+			<section id="hard" class="swatch span2">
+				<h3>Hard</h3>
+				<div>
+					<canvas id="display" width="207" height="100"></canvas>
+				</div>
+			</section>
+
+			<!-- warm -->
+			<section id="warm" class="swatch span2">
+				<h3>Warm</h3>
+				<div>
+					<canvas id="display" width="207" height="100"></canvas>
+				</div>
+			</section>
+
+			<!-- cool -->
+			<section id="cool" class="swatch span2">
+				<h3>Cool</h3>
+				<div>
+					<canvas id="display" width="207" height="100"></canvas>
+				</div>
+			</section>
+
+			<span class="span1"></span>
+		</div>
+
+		<div class="row-fluid clearfix mb">
+			<span class="span1"></span>
+
+			<!-- intense -->
+			<section id="intense" class="swatch span2">
+				<h3>Intense</h3>
+				<div>
+					<canvas id="display" width="207" height="100"></canvas>
+				</div>
+			</section>
+
+			<span class="span1"></span>
+		</div>
+
+
+		<script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
+		<script src="./static/libs/vendors/bootstrap-colorpicker.js" type="text/javascript"></script>
+		<script src="./static/libs/vendors/bootstrap-slider.js" type="text/javascript"></script>
+		
+		<script type="text/javascript" src="./libs/klrtook.js"></script>
+		<script type="text/javascript" src="./libs/klr.js"></script>
+		<script type="text/javascript" src="./libs/klrlist.js"></script>
+		<script type="text/javascript" src="./static/libs/Swatch.js"></script>
+		<script type="text/javascript" src="./static/libs/Controls.js"></script>
+		<script type="text/javascript" src="./static/libs/ColorDemo.js"></script>
+		<script type="text/javascript" src="./static/libs/Demo.js"></script>
+		
+	</body>
+</html>
