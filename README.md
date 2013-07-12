@@ -1,4 +1,8 @@
-clr
+klr
 ===
 
-javascript color utility library
+Javascript color utility library
+
+**Quick links**:
+
+- Demonstration page: <http://ahsx.github.io/klr>
