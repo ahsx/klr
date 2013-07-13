@@ -13,8 +13,7 @@ Inspired by [nodebox color library](http://nodebox.net/code/index.php/Colors)
 
 To create a new klr multiple options
 
-```
-javascript
+```javascript
 
 new klr(red, green, blue);
 new klr(186, 218, 85);
@@ -25,8 +24,7 @@ klr.fromHex(0xbada55);
 ### hue, saturation, brightness
 
 
-```
-javascript
+```javascript
 
 var k = new klr(186, 218, 85);
 
@@ -62,8 +60,7 @@ Color theory provides a visual guidance to color mixing and the visual impact of
 References: <http://en.wikipedia.org/wiki/Colour_scheme>
 
 
-```
-javascript
+```javascript
 
 var k = new klr(186, 218, 85);
 
