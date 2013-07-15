@@ -174,3 +174,50 @@ k.toLight( n );
 k.toLight( 10 );
 
 ```
+## klr tool
+
+Designed to help you with all conversion operation related to color
+
+### Hexadecimal to RGB
+
+Convert an hexadecimal format to a rgb color object.
+Accept either a String (#bada55 or bada55) or an int (0xbada55).
+Return an object with a property for each color named red, green, blue.
+
+```javascript
+
+o = klrtool.hexToRGB( '#bada55' );
+
+```
+
+### RGB to hexadecimal
+
+Convert a rgb color to an hexadecimal int.
+
+```javascript
+
+o = klrtook.RGBToHex( 186, 218, 85 ); // o = 12245589;
+
+```
+
+### HSV to RGB
+
+Convert hsv to rgb
+
+```javascript
+
+o = klrtool.HSVToRGB( 74, 61, 85 );
+// {red:186, green:218, blue:85}
+
+```
+### RGB to HSV
+
+Convert rgb to hsv
+
+```javascript
+
+o = klrtool.RGBToHSV( 186, 218, 85 );
+// {hue:74, saturation:61, value:85}
+
+```
+
