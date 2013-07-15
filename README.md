@@ -21,6 +21,55 @@ klr.fromHex(0xbada55);
 
 ```
 
+### Utility methods
+
+#### copy
+
+Create a copy of the current klr
+
+```javascript
+
+var k = new klr(186, 218, 85);
+var l = k.copy();
+
+```
+
+#### color
+
+Here are some methods to retrieve a color value.
+
+`getRed()`
+`getGreen()`
+`getBlue()` 
+
+#### reset
+
+Reset the klr back to the initial state, before any hue, saturation or brightness modification.
+
+```javascript
+
+var k = new klr(186, 218, 85);
+k.reset();
+
+```
+
+#### format
+
+Output the klr to the requested format.
+The library handle right now 4 types of output:
+
+- *hex* Return a hexadecimal int output. e.g. `12245589`
+- *rgb* Return a rgb sting output. e.g. `rgb(186, 218, 85)`
+- *rgba* Return a rgba sting output. e.g. `rgb(186, 218, 85, 1)`
+- *string* Return a hexadecimal string output. e.g `bada55`
+
+```javascript
+
+var k = new klr(186, 218, 85);
+k.format('rgb');
+
+```
+
 ### hue, saturation, brightness
 
 
@@ -100,4 +149,28 @@ k.toCompound( false );
 
 ```
 
-### Shades
+### Color ranges: Shades
+
+Some predefined color range are included in the library, with the name of shades. These includes useful concepts such as light and dark, defined by a combination of saturation and brightness.
+
+- **light**: bright and light colors.
+- **dark**: deep and colorfully saturated.
+- **bright**: colorful and friendly.
+- **weak**: neither light, soft nor neutral.
+- **neutral**: desaturated and neither bright nor dark.
+- **fresh**: light and friendly with a higher saturation than soft shades.
+- **soft**: gentle pastel colors with small difference in saturation.
+- **hard**: powerful colors but lighter than intense shades.
+- **warm**: gently saturated and gently bright.
+- **cool**: cold, bright and desaturated.
+- **intense**: powerful deep/bright contrasts.
+
+```javascript
+
+var k = new klr(186, 218, 85);
+
+// light
+k.toLight( n );
+k.toLight( 10 );
+
+```
