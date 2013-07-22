@@ -1,29 +1,35 @@
 /**
  * @author alexandre
  */
-
 (function()
 {
-	var klrlist = function( first )
+
+	/**
+	 *	Constructor
+	 *
+	 *	@param first klr
+	 **/
+	klrlist = function( first )
 	{
-		this.initialize(first);
+		this.init(first);
 	}
 	
+	/**
+	 *	Prototype
+	 **/
 	var p = klrlist.prototype;
-	p._list = null;
-	p._index = 0;
 	
 	/**
-	 * 	Initialize the wheel
+	 * 	init the wheel
+	 *
+	 *	@param first klr
 	 */
-	p.initialize = function( first )
+	p.init = function( first )
 	{
-		this._list = [];
-		this._index = 0;
+		this.list = [];
+		this.index = 0;
 		if (first != null)
-		{
 			this.addColor(first);
-		}
 	}
 	
 	/**
@@ -33,106 +39,154 @@
 	 */
 	p.addColor = function( color )
 	{
-		this._list.push( color );
+		this.list.push( color );
 	}
 	
-	p.getColor = function()
+	/** 
+	 *	Return the color at the current index, or the given index if provided
+	 *
+	 *	@param index int
+	 **/
+	p.getColor = function( index )
 	{
-		var ret = this._list[this._index];
-		rotate();
+		index = index || this.index;
+		var ret = this.list[index];
+		this.rotate();
+
 		return ret;
 	}
 	
-	p.getAsList = function()
+	/** 
+	 *	Return the color list
+	 *	
+	 *	@return Array
+	 **/
+	p.getList = function()
 	{
-		return this._list;
+		return this.list;
 	}
 
+	/**
+	 *	Rotate to the next color
+	 **/
 	p.rotate = function()
 	{
-		if(this._index == this._list.length - 1) 
-		{
-			this._index = 0;			
-		} 
+		if(this.index == this.list.length - 1) 
+			this.index = 0;			
 		else 
-		{
-			this._index++;
-		}
+			this.index++;
 	}
 
+	/**
+	 *	Brighten all the colors by the given amount
+	 *
+	 *	@param amount int
+	 **/
 	p.brighten = function (amount)
 	{
 		amount = amount || 10;
-		var n = this._list.length-1, i = -1, color;
+		var n = this.list.length-1, i = -1, color;
 		while(i++<n)
 		{
-			color = this._list[i];
+			color = this.list[i];
 			color.brighten( amount );
 		}
 	}
 
+	/**
+	 *	Darken all the colors by the given amount
+	 *
+	 *	@param amount int
+	 **/
 	p.darken = function (amount) 
 	{
 		amount = amount || 10;
-		var n = this._list.length-1, i = -1, color;
+		var n = this.list.length-1, i = -1, color;
 		while(i++<n)
 		{
-			color = this._list[i];
+			color = this.list[i];
 			color.darken(amount);
 		}
 	}
 
+	/**
+	 * Saturate all the colors by the given amount
+	 *
+	 *	@param amount int
+	 **/
 	p.saturate = function (amount)
 	{
 		amount = amount || 10;
-		var n = this._list.length-1, i = -1, color;
+		var n = this.list.length-1, i = -1, color;
 		while(i++<n)
 		{
-			color = this._list[i];
+			color = this.list[i];
 			color.saturate(amount);
 		}
 	}
 
+	/**
+	 * Desaturate all the colors by the given amount
+	 *
+	 *	@param amount int
+	 **/
 	p.deSaturate = function (amount)
 	{
 		amount = amount || 10;
-		var n = this._list.length-1, i = -1, color;
+		var n = this.list.length-1, i = -1, color;
 		while(i++<n)
 		{
-			color = this._list[i];
+			color = this.list[i];
 			color.deSaturate(amount);
 		}
 	}
 	
+	/**
+	 *	Return a copied version of the klrlist
+	 *
+	 *	@return klrlist
+	 **/
 	p.copy = function()
 	{
 		var newWheel = new klrlist();
-		var n = this._list.length-1, i = -1, color;
+		var n = this.list.length-1, i = -1, color;
 		while(i++<n)
 		{
-			color = this._list[i];
+			color = this.list[i];
 			newWheel.addColor(color.copy());
 		}
 		return newWheel;
 	}
 
+	/**
+	 *	Is the newColor contained in the list
+	 *
+	 *	@param newColor klr
+	 *	@return Boolean
+	 **/
 	p.contains = function (newColor)
 	{
-		var n = this._list.length-1, i = -1, color;
+		var n = this.list.length-1, i = -1, color;
+		var ret = false;
 		while(i++<n)
 		{
-			color = this._list[i];
+			color = this.list[i];
 			if(color.isEqual(newColor)) 
 			{
-				return true;
+				ret = true;
 			}
 		}
-		return false;
+		return ret;
 	}
 
-	p.mix = function (secondWheel)
+	/**
+	 *	Mix two list together
+	 *
+	 *	@param second klrlist
+	 **/
+	p.mix = function (second)
 	{
-		var cw2 = secondWheel.getAsList();
+		var cw2 = second.getList();
 		var n = cw2.length-1, i = -1;
 		while(i++<n)
 		{
@@ -140,99 +194,131 @@
 		} 
 	}
 
+	/**
+	 *	Shuffle the list
+	 **/
 	p.shuffle = function () 
 	{
-		this._list.sort(onShuffle);
+		this.list.sort( onShuffle );
 	}
 
+	/**
+	 *	Sort the list by brightness
+	 **/
 	p.sortByBrightness = function() 
 	{
-		this._list.sort(onBrightness);
+		this.list.sort( onBrightness );
 	}
 
+	/**
+	 *	Sort the list by saturation
+	 **/	
 	p.sortBySaturation = function()
 	{
-		this._list.sort(onSaturation);
+		this.list.sort(onSaturation);
 	}
 
-
+	/**
+	 *	Sort the list by hue
+	 **/
 	p.sortByHue = function()
 	{
-		this._list.sort(onHue);
+		this.list.sort(onHue);
 	}
 
-	p.onHue = function(c1, c2)  
+	/**
+	 *	Sort by hue utility method
+	 *
+	 *	@param c1 
+	 *	@param c2
+	 *	@return int
+	 **/
+	function onHue(c1, c2)  
 	{
+		var ret = -1;
 		if(c1.getHue() > c2.getHue()) 
-		{
-			return -1;
-		}
+			ret = -1;
 		else if(c1.getHue() == c2.getHue()) 
-		{
-			return 0;	
-		}
+			ret = 0;	
 		else if(c1.getHue() < c2.getHue()) 
-		{
-			return 1;
-		}
+			ret = 1;
+
 		return -1;
 	}
 
-	p.onSaturation = function (c1, c2)
+	/**
+	 *	Sort by saturation utility method
+	 *
+	 *	@param c1 
+	 *	@param c2
+	 *	@return int
+	 **/
+	function onSaturation (c1, c2)
 	{
+		var ret = -1;
 		if(c1.getSaturation() > c2.getSaturation()) 
-		{
-			return -1;
-		}
+			ret =  -1;
 		else if(c1.getSaturation() == c2.getSaturation()) 
-		{
-			return 0;	
-		}
+			ret =  0;	
 		else if(c1.getSaturation() < c2.getSaturation()) 
-		{
-			return 1;
-		}
-		return -1;
+			ret =  1;
+		
+		return ret;
 	}
 
-	p.onShuffle = function (ob1, ob2)
+	/**
+	 *	Sort by shuffle utility method
+	 *
+	 *	@param ob1
+	 *	@param ob2
+	 **/
+	function onShuffle (ob1, ob2)
 	{
+		var ret = -1;
 		var rnd = (Math.random() * 1.2) - 0.6;
+
 		if(rnd < 0.2 && rnd > -0.2) 
-		{
-			return 0;
-		}
+			ret = 0;
+
 		if(rnd > 0.2) 
-		{
-			return 1;
-		}
+			ret = 1;
+
 		if(rnd < -0.2) 
-		{
-			return -1;
-		}
-		return -1;
+			ret = -1;
+
+		return ret;
 	}
 
-	p.onBrightness = function(c1, c2)
+
+	/**
+	 *	Sort by brightness utility method
+	 *	
+	 *	@param c1 
+	 *	@param c2
+	 *	@return int
+	 **/
+	function onBrightness (c1, c2)
 	{
+		var ret = -1;
+
 		if(c1.getBrightness() > c2.getBrightness()) 
-		{
-			return -1;
-		}
+			ret = -1;
 		else if(c1.getBrightness() == c2.getBrightness()) 
-		{
-			return 0;
-		}
+			ret = 0;
 		else if(c1.getBrightness() < c2.getBrightness()) 
-		{
-			return 1;
-		}
-		return -1;
+			ret = 1;
+
+		return ret;
 	}
 
+	/**
+	 *	Return the length of the list
+	 *
+	 *	@return int
+	 **/
 	p.length = function()
 	{
-		return this._list.length;
+		return this.list.length;
 	}
 	
 	window.klrlist = klrlist; 

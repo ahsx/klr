@@ -88,17 +88,17 @@
 		this.compound.update( c.toCompound() ); 
 
 		// shade
-		this.light.update( c.toLight(q) );
-		this.dark.update( c.toDark(q) );
-		this.bright.update( c.toBright(q) );
-		this.weak.update( c.toWeak(q) );
-		this.neutral.update( c.toNeutral(q) );
-		this.fresh.update( c.toFresh(q) );
-		this.soft.update( c.toSoft(q) );
-		this.hard.update( c.toHard(q) );
-		this.warm.update( c.toWarm(q) );
-		this.cool.update( c.toCool(q) );
-		this.intense.update( c.toIntense(q) );
+		this.light.update( c.toLight(q), true );
+		this.dark.update( c.toDark(q), true );
+		this.bright.update( c.toBright(q), true );
+		this.weak.update( c.toWeak(q), true );
+		this.neutral.update( c.toNeutral(q), true );
+		this.fresh.update( c.toFresh(q), true );
+		this.soft.update( c.toSoft(q), true );
+		this.hard.update( c.toHard(q), true );
+		this.warm.update( c.toWarm(q), true );
+		this.cool.update( c.toCool(q), true );
+		this.intense.update( c.toIntense(q), true );
 	}
 
 	/**

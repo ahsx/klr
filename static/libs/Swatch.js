@@ -32,10 +32,12 @@
 	 *	Update the swatch
 	 *
 	 *	@param wheel ColorWheel
+	 *	@param sort Boolean
 	 **/
-	p.update = function( wheel )
+	p.update = function( wheel, sort )
 	{
-		var list = wheel.getAsList();
+		sort && wheel.sortByBrightness();
+		var list = wheel.getList();
 		var i = -1;
 		var n = list.length-1;
 

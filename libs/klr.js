@@ -430,8 +430,8 @@
 	p.toLeftComplementaryList = function()
 	{
 		var wheel = this.toComplementaryList();
-		var left = this.toSplitComplementList().getAsList()[1];
-		var colors = wheel.getAsList();
+		var left = this.toSplitComplementList().getList()[1];
+		var colors = wheel.getList();
 		colors[3].setHue(left.getHue());
 		colors[4].setHue(left.getHue());
 		colors[5].setHue(left.getHue());
@@ -447,8 +447,8 @@
 	p.toRightComplementaryList = function()
 	{
 		var wheel = this.toComplementaryList();
-		var right = this.toSplitComplementList().getAsList()[2];
-		var colors= wheel.getAsList();
+		var right = this.toSplitComplementList().getList()[2];
+		var colors= wheel.getList();
 		colors[3].setHue(right.getHue());
 		colors[4].setHue(right.getHue());
 		colors[5].setHue(right.getHue());
