@@ -1,6 +1,0 @@
---js /Users/ahsx/Projects/klr/repository/libs/klrtool.js 
---js /Users/ahsx/Projects/klr/repository/libs/klr.js 
---js /Users/ahsx/Projects/klr/repository/libs/klrlist.js 
-
---compilation_level WHITESPACE_ONLY
---js_output_file /Users/ahsx/Projects/klr/repository/klr.min.js 
