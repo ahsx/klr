@@ -16,13 +16,13 @@
 	 **/
 	function RGBFromString( value )
 	{
-		Convertor.call(this, value);
+		klr.convertor.AbstractConvertor.call(this, value);
 	}
 
 	/**
 	 * 	Inheritance
 	 **/
-	RGBFromString.prototype = Object.create(Convertor.prototype);
+	RGBFromString.prototype = Object.create(klr.convertor.AbstractConvertor.prototype);
 	RGBFromString.prototype.constructor = RGBFromString;
 	
 	/**
@@ -35,8 +35,8 @@
 	 **/
 	p.convert = function()
 	{
-		
-	}
+
+	};
 
 	klr.conversion.RGBFromString = RGBFromString;
 })(window, klr);
