@@ -5,7 +5,10 @@
  *	@author Alexandre Masy
  *	@version 2.0
  **/
-(function(window)
+var klr = {};
+klr.conversion = {};
+
+(function()
 {
 	'use strict';
 
@@ -80,5 +83,5 @@
 	};
 
 
-	window.klr = klr;
-})(window);
+	klr = klr;
+})(klr);

@@ -4,6 +4,7 @@ var gulp = require('gulp')
 	, path = require('path')
 	, uglify = require('gulp-uglify')
 	, concat = require('gulp-concat')
+	, karma = require('gulp-karma')
 	;	
 
 
@@ -24,23 +25,36 @@ var gulp = require('gulp')
  *	@param watch <String> or <Array> Lint the code.
  *	@param src <String> or <Array> List of all the file to include in the package
  **/
-var libs = [
-	{
-		name:				"klr",
-		output:				"min/",
-		sourceMap:			true,
-		lint:				true,
-		build:				'uglify',
-		watch:				'src/**/*.js',
-		src:				
-		[
-							 'src/klr.js'
-							,'src/convertor/Abstract*.js'
-							,'src/convertor/**/*.js'
-		]
-	}
-]
+var libs = {
+	name:				"klr",
+	output:				"min/",
+	sourceMap:			true,
+	lint:				true,
+	build:				'uglify',
+	watch:				'src/**/*.js',
+	src:				
+	[
+						 'src/klr.js'
+						,'src/convertor/Abstract*.js'
+						,'src/convertor/**/*.js'
+	]
+}
 
+/**
+ *	List all the jasmine tests
+ *
+ *	Each group have the followin parameters:
+ *
+ *	@param src <String> | <Array> list of the files to includes in the tests
+ *
+ **/
+var tests ={
+	src:
+	[
+						 'min/klr.min.js'
+						,'tests/**.js'
+	]
+}
 
 /////////////////////>	Tasks
 
@@ -49,40 +63,34 @@ var libs = [
 /**
  *	Lint the libraries to detect flaws
  **/
-gulp.task('libs.lint', function()
+gulp.task('lint', function()
 {
-	var n = libs.length;
-	var lib;
-	while(n--)
-	{
-		lib = libs[n];
+	if ( !libs.lint || libs.lint == false )
+		return;
 
-		if ( !lib.lint || lib.lint == false )
-			continue;
-
-		gulp.src( lib.src )
-			.pipe( jshint({strict:true}) )
-			.pipe( jshint.reporter('default') )
-		;
-	}
+	return gulp.src( libs.src )
+				.pipe( jshint({strict:true}) )
+				.pipe( jshint.reporter('default') )
+	;
 });
 
 /**
- *	Concatenate the libraries into a file (not compressed)
+ *	Test the library
  **/
-gulp.task('libs.concat', function()
+gulp.task('test', function() 
 {
-	var n = libs.length;
-	var lib;
-
-	while(n-->0)
-	{
-		lib = libs[n];
-
-		gulp.src( lib.src )
-     	.pipe( concat(lib.name+'.min.js') )
-     	.pipe( gulp.dest(lib.output) );
-	}
+  return gulp
+  				.src( tests.src )
+			    .pipe(
+			    	karma({
+			      		configFile: 'karma.conf.js',
+			      		action: 'run'
+			    	})
+			    )
+			    .on('error', function(err) {
+			      // Make sure failed tests cause gulp to exit non-zero
+			      throw err;
+			    });
 });
 
 ///////////> Dev
@@ -94,23 +102,15 @@ gulp.task('libs.concat', function()
  **/
 gulp.task('libs.dev', [], function()
 {
-	var n = libs.length;
-	var lib;
-	var map;
+	map = libs.sourceMap == undefined ? false : libs.sourceMap;
+	filename = libs.name+'.min.js';
 
-	while(n-->0)
-	{
-		lib = libs[n];
-		map = lib.sourceMap == undefined ? false : lib.sourceMap;
-		filename = lib.name+'.min.js';
-
-		gulp.src( lib.src )
-			.pipe( jshint() )
-			.pipe( jshint.reporter('default') )
-	        .pipe( uglify({ outSourceMap:map }) )
-	       	.pipe( concat(filename) )
-	       	.pipe( gulp.dest(lib.output) );		
-	}
+	gulp.src( libs.src )
+		.pipe( jshint() )
+		.pipe( jshint.reporter('default') )
+	    .pipe( uglify({ outSourceMap:map }) )
+	   	.pipe( concat(filename) )
+	   	.pipe( gulp.dest(libs.output) );		
 });
 
 /**
@@ -121,20 +121,13 @@ gulp.task('libs.dev', [], function()
  **/
 gulp.task('dev', ['libs.dev'], function ()
 {
-	// auto watch libs file change
-	var n = libs.length;
-	var lib;
-	while ( n-- )
+	if (libs.watch)
 	{
-		lib = libs[n];
-		if (lib.watch)
+		gutil.log( '[watch] [libs]' + libs.watch );
+		gulp.watch(libs.watch, ['libs.dev', 'test']).on('change', function(file)
 		{
-			gutil.log( '[watch] [libs]' + lib.watch );
-			gulp.watch(lib.watch, ['libs.dev']).on('change', function(file)
-			{
-				console.log( 'file changed %s', file.path );
-			});
-		}
+			console.log( 'file changed %s', file.path );
+		});
 	}
 });
 
@@ -145,22 +138,14 @@ gulp.task('dev', ['libs.dev'], function ()
  *	- concat all the libraries
  *	- uglify the concatenated files
  **/
-gulp.task('libs', ['libs.lint'], function()
+gulp.task('libs', ['lint'], function()
 {
-	var n = libs.length;
-	var lib;
-	var map;
+	map = libs.sourceMap == undefined ? false : libs.sourceMap;
 
-	while(n-->0)
-	{
-		lib = libs[n];
-		map = lib.sourceMap == undefined ? false : lib.sourceMap;
-
-		gulp.src( lib.src )
-	     	.pipe( concat(lib.name+'.js') )
-	     	.pipe( uglify({}) )
-	     	.pipe( gulp.dest(lib.output) );
-	}
+	gulp.src( libs.src )
+     	.pipe( concat(libs.name+'.js') )
+     	.pipe( uglify({}) )
+     	.pipe( gulp.dest(libs.output) );
 });
 
 /**

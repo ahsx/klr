@@ -1,4 +1,4 @@
-(function(window)
+(function(klr)
 {
 	'use strict';
 
@@ -26,5 +26,5 @@
 
 	};
 
-	window.klr.convertor.AbstractConvertor = AbstractConvertor;
-})(window);
+	klr.conversion.AbstractConvertor = AbstractConvertor;
+})(klr);

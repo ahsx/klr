@@ -1,4 +1,4 @@
-(function( window, klr )
+(function( klr )
 {
 	"use strict";
 
@@ -16,13 +16,13 @@
 	 **/
 	function RGBFromString( value )
 	{
-		klr.convertor.AbstractConvertor.call(this, value);
+		klr.conversion.AbstractConvertor.call(this, value);
 	}
 
 	/**
 	 * 	Inheritance
 	 **/
-	RGBFromString.prototype = Object.create(klr.convertor.AbstractConvertor.prototype);
+	RGBFromString.prototype = Object.create(klr.conversion.AbstractConvertor.prototype);
 	RGBFromString.prototype.constructor = RGBFromString;
 	
 	/**
@@ -35,8 +35,14 @@
 	 **/
 	p.convert = function()
 	{
+		var ret = {
+			r: 0,
+			g: 0,
+			b: 0
+		}
 
+		return ret;
 	};
 
 	klr.conversion.RGBFromString = RGBFromString;
-})(window, klr);
+})(klr);
