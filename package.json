@@ -1,0 +1,14 @@
+{
+  "name": "klr",
+  "version": "2.0.0",
+  "description": "Yet another color api",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "karma-chrome-launcher": "^0.1.5"
+  }
+}
